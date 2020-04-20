@@ -3,11 +3,14 @@ package com.chen.spring.cloud.alibaba.consumer.controller;
 
 import com.chen.spring.cloud.alibaba.consumer.service.EchoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RefreshScope
 public class TestFeignController {
 
     @Autowired
@@ -30,5 +33,16 @@ public class TestFeignController {
     @GetMapping("feign/port")
     public String port(){
         return echoService.port();
+    }
+
+    /**
+     * 测试nacos动态配置
+     */
+    @Autowired
+    @Value("${user.name}")
+    private String username;
+    @GetMapping(value = "/config")
+    public String config() {
+        return echoService.echo(username);
     }
 }
