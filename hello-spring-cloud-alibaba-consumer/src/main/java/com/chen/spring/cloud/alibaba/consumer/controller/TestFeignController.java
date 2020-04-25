@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RefreshScope
+@RefreshScope //动态刷新配置信息，这里测试的是username
 public class TestFeignController {
 
     @Autowired
